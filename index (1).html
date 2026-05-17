@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aboryo Edwin Angel — Data Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0c;
+      --bg2: #141413;
+      --bg3: #1c1c1a;
+      --text: #f0ede6;
+      --text2: #a09d95;
+      --text3: #5c5a54;
+      --accent: #c8a96e;
+      --accent2: #e8d4a8;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.5px solid var(--border);
+      background: rgba(13,13,12,0.85);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 800px; }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-bio {
+      font-size: 16px;
+      color: var(--text2);
+      max-width: 540px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 1.75rem;
+      font-size: 13px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0c;
+    }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text2);
+      border: 0.5px solid var(--border2);
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text3); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem; left: 3rem;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text3);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: inline-block;
+      width: 1px; height: 48px;
+      background: var(--text3);
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 3rem; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-num {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+    }
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+    }
+
+    /* ABOUT */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--text2);
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-facts { display: flex; flex-direction: column; gap: 1.5rem; }
+    .fact-item {
+      padding: 1.25rem 1.5rem;
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      background: var(--bg3);
+    }
+    .fact-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 0.4rem;
+    }
+    .fact-value {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .exp-item:first-child { border-top: 0.5px solid var(--border); }
+    .exp-period {
+      font-size: 12px;
+      color: var(--text3);
+      letter-spacing: 0.04em;
+      padding-top: 3px;
+    }
+    .exp-right {}
+    .exp-role {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .exp-org {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+      font-family: 'Fraunces', serif;
+    }
+    .exp-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    /* SKILLS */
+    #skills { background: var(--bg2); }
+    .skills-categories { display: flex; flex-direction: column; gap: 2rem; }
+    .skill-cat-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 0.75rem;
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      font-size: 13px;
+      padding: 6px 16px;
+      border: 0.5px solid var(--border2);
+      border-radius: 2px;
+      color: var(--text2);
+      background: var(--bg3);
+      transition: all 0.2s;
+    }
+    .pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .pill.accent {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200,169,110,0.06);
+    }
+
+    /* EDUCATION */
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .edu-card {
+      padding: 1.75rem;
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      background: var(--bg2);
+    }
+    .edu-degree {
+      font-family: 'Fraunces', serif;
+      font-size: 17px;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    .edu-school {
+      font-size: 13px;
+      color: var(--accent);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .edu-year { font-size: 12px; color: var(--text3); }
+
+    /* CONTACT */
+    #contact { background: var(--bg2); }
+    .contact-inner { text-align: center; max-width: 600px; margin: 0 auto; }
+    .contact-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .contact-heading em { font-style: italic; color: var(--accent); }
+    .contact-sub {
+      font-size: 15px;
+      color: var(--text2);
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+      padding: 0.6rem 1.25rem;
+      border: 0.5px solid var(--border2);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .contact-item:hover { color: var(--text); border-color: var(--text3); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 3rem;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { animation: fadeUp 0.7s ease both; }
+    h1             { animation: fadeUp 0.7s 0.1s ease both; }
+    .hero-bio      { animation: fadeUp 0.7s 0.2s ease both; }
+    .hero-cta      { animation: fadeUp 0.7s 0.3s ease both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .edu-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#">Edwin Angel</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Aspiring Data Engineer · Data-Driven Problem Solver · Ghana</p>
+      <h1>Aboryo<br><em>Edwin</em><br>Angel</h1>
+      <p class="hero-bio">Building data infrastructure that makes African education systems smarter, more reliable, and impossible to ignore. Computer Science graduate. Field veteran. Aspiring Data Engineer.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-ghost" href="#experience">View experience</a>
+      </div>
+    </div>
+    <p class="hero-scroll">Scroll</p>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>About me</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I am Aboryo Edwin Angel — an aspiring Data Engineer, Computer Science graduate from the University of Ghana, and someone who has spent years in the field watching data fall through the cracks. I went from monitoring polio vaccinations in Ada West to issuing teacher licence cards across all 16 regions of Ghana, only to realise my life's mission is to build the systems that make critical data reliable, accessible, and impossible to lose.</p>
+          <p>What makes me unique is simple — I do not just understand data from a screen. I have collected it by hand, in the field, in rural communities, from teachers who deserved better systems than the ones supporting them. That lived experience is the fuel behind everything I am building toward.</p>
+          <p>I am passionate about education as the most powerful force for sustainable development in Africa. Data Engineering is my answer — by designing robust data pipelines and scalable cloud infrastructure, I intend to transform how educational data is collected, managed, and used across the African continent.</p>
+          <p>Currently building expertise in Python, SQL, cloud computing, and pipeline development — one early morning study session at a time, before the fieldwork begins at 7:30 AM. Because everything worth doing has hard parts, and I have never been afraid of those.</p>
+          <p><em style="color: var(--accent); font-family: 'Fraunces', serif;">"I went from collecting data by hand across Ghana to building systems that make that kind of manual work unnecessary — turns out, both jobs are really about making sure nothing falls through the cracks."</em></p>
+        </div>
+        <div class="about-facts">
+          <div class="fact-item">
+            <p class="fact-label">Mission</p>
+            <p class="fact-value">Building data infrastructure to improve education across Africa</p>
+          </div>
+          <div class="fact-item">
+            <p class="fact-label">Grand Challenge (GCGO)</p>
+            <p class="fact-value">Education — Access, Quality & Equity in Africa</p>
+          </div>
+          <div class="fact-item">
+            <p class="fact-label">Current Focus</p>
+            <p class="fact-value">Data Engineering & Pipeline Development</p>
+          </div>
+          <div class="fact-item">
+            <p class="fact-label">Location</p>
+            <p class="fact-value">Battor, Volta Region, Ghana</p>
+          </div>
+          <div class="fact-item">
+            <p class="fact-label">Languages</p>
+            <p class="fact-value">English (Fluent) · Ewe (Native)</p>
+          </div>
+          <div class="fact-item">
+            <p class="fact-label">Interests</p>
+            <p class="fact-value">Cloud Computing · AI · Backend & Data Engineering</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Experience</h2>
+      </div>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <p class="exp-period">Dec 2024 – Present</p>
+          <div class="exp-right">
+            <p class="exp-role">Field Officer — A.B.E. Project</p>
+            <p class="exp-org">National Teaching Council, Ghana (Nationwide)</p>
+            <p class="exp-desc">Spearheaded teacher licence card issuance across all 16 regions of Ghana. Conducted on-site verification, data collection, and stakeholder engagement. Trained and supported local teams across urban and rural settings, demonstrating adaptability in complex, multi-region operations.</p>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <p class="exp-period">October 2024</p>
+          <div class="exp-right">
+            <p class="exp-role">Independent Monitor (Field Officer)</p>
+            <p class="exp-org">Ghana Health Service, Ada West District</p>
+            <p class="exp-desc">Utilised ODK Collect for structured field data collection during the national polio vaccination programme. Monitored and recorded vaccination data for children aged 0–5, ensuring accuracy and programme compliance.</p>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <p class="exp-period">2022 – 2023</p>
+          <div class="exp-right">
+            <p class="exp-role">IT NSS Personnel</p>
+            <p class="exp-org">Catholic Hospital, Cervical Cancer Prevention & Training Centre — Battor</p>
+            <p class="exp-desc">Performed data capturing and data cleaning using the web-based application REDCap. Provided IT support including troubleshooting and networking projects within the hospital environment.</p>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <p class="exp-period">Ongoing</p>
+          <div class="exp-right">
+            <p class="exp-role">Deputy Secretary</p>
+            <p class="exp-org">The Sweat Must Drop (TSMD), Battor</p>
+            <p class="exp-desc">Led the planning committee for the TSMD Peace Walk on November 30, 2024, promoting peaceful elections in Ghana. Responsible for accurate minute-taking and supporting the General Secretary with administrative duties.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Skills</h2>
+      </div>
+      <div class="skills-categories">
+        <div>
+          <p class="skill-cat-label">Technical</p>
+          <div class="skill-pills">
+            <span class="pill accent">Python</span>
+            <span class="pill accent">SQL</span>
+            <span class="pill">Linux Basics</span>
+            <span class="pill">REDCap</span>
+            <span class="pill">ODK Collect</span>
+            <span class="pill">Data Pipeline Development</span>
+          </div>
+        </div>
+        <div>
+          <p class="skill-cat-label">Currently Building</p>
+          <div class="skill-pills">
+            <span class="pill">Cloud Computing (AWS / GCP)</span>
+            <span class="pill">Apache Spark</span>
+            <span class="pill">ETL Pipelines</span>
+            <span class="pill">Data Warehousing</span>
+          </div>
+        </div>
+        <div>
+          <p class="skill-cat-label">Professional</p>
+          <div class="skill-pills">
+            <span class="pill">Field Data Collection</span>
+            <span class="pill">Stakeholder Engagement</span>
+            <span class="pill">IT Support & Networking</span>
+            <span class="pill">Team Training</span>
+            <span class="pill">Project Coordination</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>Education</h2>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <p class="edu-degree">BSc, Computer Science</p>
+          <p class="edu-school">University of Ghana — Legon</p>
+          <p class="edu-year">August 2018 – October 2022</p>
+        </div>
+        <div class="edu-card">
+          <p class="edu-degree">WASSCE</p>
+          <p class="edu-school">Sogakope Senior High School</p>
+          <p class="edu-year">September 2014 – June 2017</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <h2 class="contact-heading">Let's build <em>Africa's</em> data future</h2>
+      <p class="contact-sub">I am open to opportunities, collaborations, and conversations in the data engineering space — especially where data can improve education outcomes across Africa. Feel free to reach out.</p>
+      <div class="contact-links">
+        <a class="contact-item" href="mailto:aboryoedwinangel@gmail.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg>
+          aboryoedwinangel@gmail.com
+        </a>
+        <a class="contact-item" href="https://linkedin.com/in/aboryo-edwin-angel-758648245" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-item" href="tel:+233547943267">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          +233 547 943 267
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2025 Aboryo Edwin Angel</span>
+    <span>Battor, Volta Region, Ghana</span>
+  </footer>
+
+</body>
+</html>
